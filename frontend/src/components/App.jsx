@@ -1,10 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from "./Login";
+import MainPage from "./MainPage";
+import NotFound from "./NotFound";
 
-function App() {
+const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/auth' element={<div>Hello world!</div>} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/' element={<MainPage />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
