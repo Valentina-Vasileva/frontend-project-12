@@ -23,6 +23,11 @@ export default {
       buttons: {
         enter: 'Войти',
       },
+      errors: {
+        unauthorized: 'Неверные имя пользователя или пароль',
+        network: 'Ошибка соединения',
+        default: 'Неизвестная ошибка',
+      },
     },
   },
 };

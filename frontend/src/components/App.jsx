@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import Login from './Login.jsx';
 import MainPage from './MainPage.jsx';
 import NotFound from './NotFound.jsx';
@@ -14,6 +15,18 @@ const App = () => (
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Container>
   </BrowserRouter>
 );

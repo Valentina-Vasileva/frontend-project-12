@@ -7,6 +7,18 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+
+const getTypeOfErrorMessage = (message) => {
+  switch (message) {
+    case 'Request failed with status code 401':
+      return 'unauthorized';
+    case 'Network Error':
+      return 'network';
+    default:
+      return 'default';
+  }
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,6 +60,9 @@ const Login = () => {
                         })
                         .catch((error) => {
                           setLoginError(error);
+                          if (loginError && getTypeOfErrorMessage(loginError.message) === 'network') {
+                            toast.error(t('login.errors.network'));
+                          }
                         });
                     }}
                   >
@@ -72,12 +87,12 @@ const Login = () => {
                               {errors.password}
                             </Form.Control.Feedback>
                           ) : null}
-                          { loginError
+                          { loginError && getTypeOfErrorMessage(loginError.message)
                           && (
                           <ToastContainer>
                             <Toast className="text-white" bg="danger">
                               <Toast.Body className="p-0">
-                                { loginError.message }
+                                { t(`login.errors.${getTypeOfErrorMessage(loginError.message)}`) }
                               </Toast.Body>
                             </Toast>
                           </ToastContainer>
