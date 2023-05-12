@@ -6,10 +6,12 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState();
+  const { t } = useTranslation();
 
   return (
     <Container fluid className="min-vh-100 align-items-center justify-content-center d-flex">
@@ -25,15 +27,15 @@ const Login = () => {
                   />
                 </Col>
                 <Col>
-                  <h1 className="mb-4">Войти</h1>
+                  <h1 className="mb-4">{t('login.title')}</h1>
                   <Formik
                     initialValues={{
                       username: '',
                       password: '',
                     }}
                     validationSchema={Yup.object().shape({
-                      username: Yup.string().required('Обязательное поле'),
-                      password: Yup.string().required('Обязательное поле'),
+                      username: Yup.string().required(t('login.inputs.nickname.errors.required')),
+                      password: Yup.string().required(t('login.inputs.password.errors.required')),
                     })}
                     onSubmit={(values) => {
                       axios.post('/api/v1/login', {
@@ -54,8 +56,8 @@ const Login = () => {
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 text-body form-floating">
-                          <Form.Control required type="text" placeholder="Ваш ник" name="username" value={values.username} onChange={handleChange} />
-                          <Form.Label>Ваш ник</Form.Label>
+                          <Form.Control required type="text" placeholder={t('login.inputs.nickname.placeholder')} name="username" value={values.username} onChange={handleChange} />
+                          <Form.Label>{t('login.inputs.nickname.label')}</Form.Label>
                           {errors.username && touched.username ? (
                             <Form.Control.Feedback type="invalid">
                               {errors.username}
@@ -63,8 +65,8 @@ const Login = () => {
                           ) : null}
                         </Form.Group>
                         <Form.Group className="mb-4 text-body form-floating">
-                          <Form.Control required type="password" placeholder="Пароль" name="password" value={values.password} onChange={handleChange} />
-                          <Form.Label>Пароль</Form.Label>
+                          <Form.Control required type="password" placeholder={t('login.inputs.password.placeholder')} name="password" value={values.password} onChange={handleChange} />
+                          <Form.Label>{t('login.inputs.password.label')}</Form.Label>
                           {errors.password && touched.password ? (
                             <Form.Control.Feedback type="invalid" tooltip>
                               {errors.password}
@@ -82,7 +84,7 @@ const Login = () => {
                           )}
                         </Form.Group>
                         <Button className="w-100 mb-3" variant="outline-primary" type="submit">
-                          Войти
+                          {t('login.buttons.enter')}
                         </Button>
                       </Form>
                     )}
@@ -91,8 +93,11 @@ const Login = () => {
               </Row>
               <Card.Footer className="p-4">
                 <Card.Text>
-                  <span>Нет аккаунта? </span>
-                  <Card.Link href="/signup">Регистрация</Card.Link>
+                  <span>
+                    {t('login.has_no_account_question')}
+                    {' '}
+                  </span>
+                  <Card.Link href="/signup">{t('login.registration')}</Card.Link>
                 </Card.Text>
               </Card.Footer>
             </Card.Body>
