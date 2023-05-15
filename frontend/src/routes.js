@@ -5,7 +5,7 @@ const routes = {
     signup: () => '/signup',
   },
   backend: {
-    login: '/api/v1/login',
+    login: () => '/api/v1/login',
   },
 };
 

@@ -22,6 +22,7 @@ export default {
       },
       buttons: {
         enter: 'Войти',
+        logout: 'Выйти',
       },
       errors: {
         unauthorized: 'Неверные имя пользователя или пароль',

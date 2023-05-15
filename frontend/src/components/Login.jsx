@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Col, Row, Card, Container, Image, Form, Button, Toast, ToastContainer,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import routes from '../routes.js';
+import AuthContext from '../context/AuthContext.js';
 
 const getTypeOfErrorMessage = (message) => {
   switch (message) {
@@ -22,9 +23,35 @@ const getTypeOfErrorMessage = (message) => {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [loginError, setLoginError] = useState();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState();
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required(t('login.inputs.nickname.errors.required')),
+    password: Yup.string().required(t('login.inputs.password.errors.required')),
+  });
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    axios.post(routes.backend.login(), { username, password })
+      .then((response) => {
+        login(response.data.token);
+        navigate(routes.frontend.main());
+      })
+      .catch((error) => {
+        setLoginError(error);
+        if (getTypeOfErrorMessage(error.message) === 'network') {
+          toast.error(t('login.errors.network'));
+        }
+      });
+  };
+
+  const initialValues = {
+    username: '',
+    password: '',
+  };
 
   return (
     <Container fluid className="min-vh-100 align-items-center justify-content-center d-flex">
@@ -42,30 +69,9 @@ const Login = () => {
                 <Col>
                   <h1 className="mb-4">{t('login.title')}</h1>
                   <Formik
-                    initialValues={{
-                      username: '',
-                      password: '',
-                    }}
-                    validationSchema={Yup.object().shape({
-                      username: Yup.string().required(t('login.inputs.nickname.errors.required')),
-                      password: Yup.string().required(t('login.inputs.password.errors.required')),
-                    })}
-                    onSubmit={(values) => {
-                      axios.post(routes.backend.login(), {
-                        username: values.username,
-                        password: values.password,
-                      })
-                        .then((response) => {
-                          localStorage.setItem('token', response.data.token);
-                          navigate('/');
-                        })
-                        .catch((error) => {
-                          setLoginError(error);
-                          if (loginError && getTypeOfErrorMessage(loginError.message) === 'network') {
-                            toast.error(t('login.errors.network'));
-                          }
-                        });
-                    }}
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
                   >
                     {({
                       errors, touched, handleSubmit, handleChange, values,
@@ -88,7 +94,7 @@ const Login = () => {
                               {errors.password}
                             </Form.Control.Feedback>
                           ) : null}
-                          { loginError && getTypeOfErrorMessage(loginError.message)
+                          { loginError && getTypeOfErrorMessage(loginError.message) === 'unauthorized'
                           && (
                           <ToastContainer>
                             <Toast className="text-white" bg="danger">
