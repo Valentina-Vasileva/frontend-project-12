@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import routes from '../routes.js';
 
 const getTypeOfErrorMessage = (message) => {
   switch (message) {
@@ -50,7 +51,7 @@ const Login = () => {
                       password: Yup.string().required(t('login.inputs.password.errors.required')),
                     })}
                     onSubmit={(values) => {
-                      axios.post('/api/v1/login', {
+                      axios.post(routes.backend.login(), {
                         username: values.username,
                         password: values.password,
                       })
@@ -112,7 +113,7 @@ const Login = () => {
                     {t('login.has_no_account_question')}
                     {' '}
                   </span>
-                  <Card.Link href="/signup">{t('login.registration')}</Card.Link>
+                  <Card.Link href={routes.frontend.signup()}>{t('login.registration')}</Card.Link>
                 </Card.Text>
               </Card.Footer>
             </Card.Body>
