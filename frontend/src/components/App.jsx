@@ -1,18 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
+import { Container } from 'react-bootstrap';
 import Login from './Login.jsx';
-import MainPage from './MainPage.jsx';
+import Main from './Main.jsx';
 import NotFound from './NotFound.jsx';
 import Header from './Header.jsx';
+import routes from '../routes.js';
 
 const App = () => (
   <BrowserRouter>
-    <Header />
-    <Container className="bg-light min-vh-100 min-vw-100">
+    <Container className="h-100 d-flex flex-column p-0" fluid>
+      <Header />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<MainPage />} />
+        <Route path={routes.frontend.login()} element={<Login />} />
+        <Route path={routes.frontend.main()} element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer

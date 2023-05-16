@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext.js';
+import Chat from './Chat.jsx';
 
-const MainPage = () => {
+const Main = () => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
@@ -13,8 +14,8 @@ const MainPage = () => {
   });
 
   return (
-    <div>Hello world Main Page!</div>
+    <Chat />
   );
 };
 
-export default MainPage;
+export default Main;
