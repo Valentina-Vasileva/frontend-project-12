@@ -30,5 +30,8 @@ export default {
         default: 'Неизвестная ошибка',
       },
     },
+    channels: {
+      title: 'Каналы',
+    },
   },
 };
