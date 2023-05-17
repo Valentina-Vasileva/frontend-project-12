@@ -6,6 +6,7 @@ const routes = {
   },
   backend: {
     login: () => '/api/v1/login',
+    getData: () => '/api/v1/data',
   },
 };
 
