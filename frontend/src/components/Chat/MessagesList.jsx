@@ -1,34 +1,22 @@
 import { Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { selectors } from '../../slices/messagesSlice.js';
 
 const MessagesList = () => {
-  const messages = [
-    {
-      id: 1,
-      text: 'hello',
-      author: 'Vasya',
-    },
-    {
-      id: 1,
-      text: 'hello you',
-      author: 'Maxim',
-    },
-    {
-      id: 1,
-      text: 'how are you',
-      author: 'Vasya',
-    },
-  ];
+  const messages = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector((selector) => selector.channelsReducer.currentChannelId);
+  const channelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
 
   return (
     <Col className="bg-white">
       <ul>
-        {messages.map((message) => (
+        {channelMessages.map((message) => (
           <li key={message.id}>
             <b>
-              {message.author}
+              {message.username}
               {': '}
             </b>
-            {message.text}
+            {message.body}
           </li>
         ))}
       </ul>
