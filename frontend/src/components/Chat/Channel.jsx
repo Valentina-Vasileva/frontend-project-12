@@ -13,7 +13,7 @@ const ChannelsList = ({ channel }) => {
   const { id, name } = channel;
 
   return (
-    <NavItem key={id} className="w-100 mb-3">
+    <NavItem key={id} className="w-100">
       <Button
         variant={currentChannelId === id ? 'secondary' : ''}
         checked={currentChannelId === id}
