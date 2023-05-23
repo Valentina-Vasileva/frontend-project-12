@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext.js';
-import Chat from './Chat.jsx';
+import Chat from './Chat/Chat.jsx';
 
 const Main = () => {
   const navigate = useNavigate();
