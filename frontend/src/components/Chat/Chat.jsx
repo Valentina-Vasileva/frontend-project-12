@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import { fetchChatData } from '../../slices/channelsSlice.js';
 import ChannelsList from './ChannelsList.jsx';
+import MessagesList from './MessagesList.jsx';
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Chat = () => {
     <Container className="my-4 h-100 shadow">
       <Row className="h-100">
         <ChannelsList />
-        <Col className="bg-white" />
+        <MessagesList />
       </Row>
     </Container>
   );
