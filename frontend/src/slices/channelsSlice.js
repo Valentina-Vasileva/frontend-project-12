@@ -23,7 +23,7 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState: { ...initialState, currentChannelId: null },
   reducers: {
-    setCurrentChannelId: (state, payload) => {
+    setCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
     },
   },
@@ -32,7 +32,8 @@ const channelsSlice = createSlice({
       .addCase(fetchChatData.fulfilled, (state, action) => {
         const { payload: { channels, currentChannelId } } = action;
         channelsAdapter.addMany(state, channels);
-        channelsSlice.caseReducers.setCurrentChannelId(state, currentChannelId);
+        action.payload = currentChannelId;
+        channelsSlice.caseReducers.setCurrentChannelId(state, action);
       });
   },
 });

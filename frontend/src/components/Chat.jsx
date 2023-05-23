@@ -5,7 +5,7 @@ import {
   Col, Container, Nav, NavItem, Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { fetchChatData, selectors } from '../slices/channelsSlice.js';
+import { fetchChatData, selectors, actions as channelsActions } from '../slices/channelsSlice.js';
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,13 @@ const Chat = () => {
     dispatch(fetchChatData());
   }, [dispatch]);
 
+  const handleSetChannel = (id) => () => {
+    dispatch(channelsActions.setCurrentChannelId(id));
+  };
+
   const { t } = useTranslation();
   const channels = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector((selector) => selector.channelsReducer.currentChannelId);
 
   return (
     <Container className="my-4 h-100 shadow">
@@ -39,10 +44,17 @@ const Chat = () => {
             </Button>
           </div>
           { channels && (
-          <Nav className="px-4 h-100 overflow-auto d-block">
+          <Nav className="px-2 h-100 overflow-auto d-block">
               {channels.map(({ id, name }) => (
                 <NavItem key={id} className="w-100 mb-3">
-                  <span className="mr-auto">{`#\u00A0${name}`}</span>
+                  <Button
+                    variant={currentChannelId === id ? 'secondary' : ''}
+                    checked={currentChannelId === id}
+                    onClick={handleSetChannel(id)}
+                    className="w-100 text-start rounded-0"
+                  >
+                    {`#\u00A0${name}`}
+                  </Button>
                 </NavItem>
               ))}
           </Nav>
