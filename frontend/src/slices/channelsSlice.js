@@ -21,12 +21,18 @@ export const fetchChatData = createAsyncThunk(
 
 const channelsSlice = createSlice({
   name: 'channels',
-  initialState,
+  initialState: { ...initialState, currentChannelId: null },
+  reducers: {
+    setCurrentChannelId: (state, payload) => {
+      state.currentChannelId = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchChatData.fulfilled, (state, action) => {
-        const { payload: { channels } } = action;
+        const { payload: { channels, currentChannelId } } = action;
         channelsAdapter.addMany(state, channels);
+        channelsSlice.caseReducers.setCurrentChannelId(state, currentChannelId);
       });
   },
 });
