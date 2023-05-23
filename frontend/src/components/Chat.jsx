@@ -39,10 +39,10 @@ const Chat = () => {
             </Button>
           </div>
           { channels && (
-          <Nav className="d-flex px-2">
+          <Nav className="px-4 h-100 overflow-auto d-block">
               {channels.map(({ id, name }) => (
                 <NavItem key={id} className="w-100 mb-3">
-                  <span className="mr-auto">{`# ${name}`}</span>
+                  <span className="mr-auto">{`#\u00A0${name}`}</span>
                 </NavItem>
               ))}
           </Nav>
