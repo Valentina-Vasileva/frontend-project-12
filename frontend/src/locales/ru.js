@@ -33,5 +33,10 @@ export default {
     channels: {
       title: 'Каналы',
     },
+    messages_list: {
+      messages_one: '{{count}} сообщение',
+      messages_few: '{{count}} сообщения',
+      messages_many: '{{count}} сообщений',
+    },
   },
 };

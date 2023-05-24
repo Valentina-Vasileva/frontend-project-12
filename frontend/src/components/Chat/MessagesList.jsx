@@ -1,6 +1,7 @@
 import { Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectors } from '../../slices/messagesSlice.js';
+import MessagesHeader from './MessagesHeader.jsx';
 
 const MessagesList = () => {
   const messages = useSelector(selectors.selectAll);
@@ -8,7 +9,8 @@ const MessagesList = () => {
   const channelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
 
   return (
-    <Col className="bg-white">
+    <Col className="bg-white p-0">
+      <MessagesHeader />
       <ul>
         {channelMessages.map((message) => (
           <li key={message.id}>
