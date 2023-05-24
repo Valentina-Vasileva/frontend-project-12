@@ -1,7 +1,8 @@
-import { Col } from 'react-bootstrap';
+import { Col, ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectors } from '../../slices/messagesSlice.js';
 import MessagesHeader from './MessagesHeader.jsx';
+import Message from './Message';
 
 const MessagesList = () => {
   const messages = useSelector(selectors.selectAll);
@@ -11,17 +12,11 @@ const MessagesList = () => {
   return (
     <Col className="bg-white p-0">
       <MessagesHeader />
-      <ul>
+      <ListGroup className="overflow-auto px-5">
         {channelMessages.map((message) => (
-          <li key={message.id}>
-            <b>
-              {message.username}
-              {': '}
-            </b>
-            {message.body}
-          </li>
+          <Message message={message} key={message.id} className="border-0 p-1 mb-2" />
         ))}
-      </ul>
+      </ListGroup>
     </Col>
   );
 };
