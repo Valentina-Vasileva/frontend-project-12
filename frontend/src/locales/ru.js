@@ -33,10 +33,18 @@ export default {
     channels: {
       title: 'Каналы',
     },
-    messages_list: {
-      messages_one: '{{count}} сообщение',
-      messages_few: '{{count}} сообщения',
-      messages_many: '{{count}} сообщений',
+    messages: {
+      list: {
+        messages_one: '{{count}} сообщение',
+        messages_few: '{{count}} сообщения',
+        messages_many: '{{count}} сообщений',
+      },
+      input: {
+        errors: {
+          required: 'Необходимо ввести сообщение',
+        },
+        placeholder: 'Введите сообщение...',
+      },
     },
   },
 };

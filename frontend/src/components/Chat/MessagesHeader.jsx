@@ -15,7 +15,7 @@ const MessagesHeader = () => {
   return (
     <Container fluid className="bg-light p-3 mb-4 small shadow-sm">
       <p className="m-0"><b>{channel && `#\u00A0${channel.name}`}</b></p>
-      <span className="text-secondary">{t('messages_list.messages', { count: messagesCount })}</span>
+      <span className="text-secondary">{t('messages.list.messages', { count: messagesCount })}</span>
     </Container>
   );
 };
