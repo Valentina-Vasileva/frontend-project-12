@@ -11,7 +11,7 @@ const MessagesList = () => {
   const channelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
 
   return (
-    <Col className="bg-white p-0 d-flex flex-column">
+    <Col className="bg-white p-0 d-flex flex-column overflow-auto">
       <MessagesHeader />
       <ListGroup className="overflow-auto px-5">
         {channelMessages.map((message) => (

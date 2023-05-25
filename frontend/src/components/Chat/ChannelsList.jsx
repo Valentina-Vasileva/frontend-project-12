@@ -9,8 +9,8 @@ const ChannelsList = () => {
   const { t } = useTranslation();
 
   return (
-    <Col className="col-2 bg-light d-flex flex-column">
-      <div className="p-4 mt-1 mb-2 pe-2 ps-4 justify-content-between d-flex">
+    <Col className="col-2 bg-light d-flex flex-column px-0 border-end">
+      <div className="py-4 mt-1 mb-2 pe-2 ps-4 justify-content-between d-flex">
         <b>{t('channels.title')}</b>
         <Button className="p-0 btn-group-vertical bg-white border-0 text-primary">
           <svg
@@ -28,7 +28,7 @@ const ChannelsList = () => {
         </Button>
       </div>
       {channels && (
-      <Nav className="px-2 h-100 overflow-auto d-block">
+      <Nav className="h-100 overflow-auto d-block px-2">
         {channels.map((channel) => (
           <Channel channel={channel} key={channel.id} />
         ))}
