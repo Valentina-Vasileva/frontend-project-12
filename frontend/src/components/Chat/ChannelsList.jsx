@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Button, Col, Nav } from 'react-bootstrap';
-import { selectors } from '../../slices/channelsSlice';
+import { selectors } from '../../slices/channelsSlice.js';
 import Channel from './Channel.jsx';
 
 const ChannelsList = () => {
