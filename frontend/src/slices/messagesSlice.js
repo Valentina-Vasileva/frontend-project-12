@@ -8,13 +8,20 @@ const initialState = messagesAdapter.getInitialState();
 export const sendMessage = createAsyncThunk(
   'messages/sendMessage',
   async ({ body, channelId, username }) => {
-    socket.emit('newMessage', { body, channelId, username });
+    await new Promise((resolve, reject) => {
+      socket.emit('newMessage', { body, channelId, username }, (response) => {
+        if (response.error) {
+          reject();
+        }
+        resolve();
+      });
+    });
   },
 );
 
 const messagesSlice = createSlice({
   name: 'messages',
-  initialState,
+  initialState: { ...initialState, messageFormStatus: 'inactivity' },
   reducers: {
     addMessage: messagesAdapter.addOne,
   },
@@ -24,8 +31,14 @@ const messagesSlice = createSlice({
         const { payload: { messages } } = action;
         messagesAdapter.addMany(state, messages);
       })
-      .addCase(sendMessage.rejected, () => {
-        console.log('Add message error');
+      .addCase(sendMessage.pending, (state) => {
+        state.messageFormStatus = 'pending';
+      })
+      .addCase(sendMessage.rejected, (state) => {
+        state.messageFormStatus = 'inactivity';
+      })
+      .addCase(sendMessage.fulfilled, (state) => {
+        state.messageFormStatus = 'inactivity';
       });
   },
 });
