@@ -6,7 +6,7 @@ import ChannelsList from './ChannelsList.jsx';
 import MessagesList from './MessagesList.jsx';
 import socket from '../../socket.js';
 import { actions as messagesActions } from '../../slices/messagesSlice.js';
-import fetchChatData from '../../slices/fetchChatData.js';
+import fetchChatData from '../../slices/chatSlice.js';
 
 const Chat = () => {
   const dispatch = useDispatch();

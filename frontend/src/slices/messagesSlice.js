@@ -1,6 +1,6 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import socket from '../socket.js';
-import fetchChatData from './fetchChatData.js';
+import fetchChatData from './chatSlice.js';
 
 export const messagesAdapter = createEntityAdapter();
 const initialState = messagesAdapter.getInitialState();
