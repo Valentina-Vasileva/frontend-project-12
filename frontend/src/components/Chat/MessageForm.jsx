@@ -2,14 +2,16 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { sendMessage } from '../../slices/messagesSlice.js';
+import AuthContext from '../../context/AuthContext.js';
 
 const MessageForm = () => {
   const { t } = useTranslation();
   const currentChannelId = useSelector((selector) => selector.channelsReducer.currentChannelId);
   const dispatch = useDispatch();
+  const { username } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
     body: Yup.string().required(t('messages.input.errors.required')),
@@ -21,7 +23,7 @@ const MessageForm = () => {
 
   const onSubmit = async (values, { resetForm }) => {
     const { body } = values;
-    dispatch(sendMessage({ body, channelId: currentChannelId, username: 'admin' }));
+    dispatch(sendMessage({ body, channelId: currentChannelId, username }));
     resetForm();
   };
 

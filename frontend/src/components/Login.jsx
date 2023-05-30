@@ -37,7 +37,7 @@ const Login = () => {
     const { username, password } = values;
     axios.post(routes.backend.login(), { username, password })
       .then((response) => {
-        login(response.data.token);
+        login(response.data.token, username);
         navigate(routes.frontend.main());
       })
       .catch((error) => {
