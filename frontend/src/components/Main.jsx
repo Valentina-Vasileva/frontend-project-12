@@ -12,7 +12,7 @@ const Main = () => {
     if (!auth) {
       navigate(routes.frontend.login());
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   return (
     <Chat />
