@@ -5,9 +5,6 @@ import i18n from 'i18next';
 import routes from '../routes';
 import getErrorType from '../getErrorType';
 
-const isAuth = localStorage.getItem('token') !== null;
-const currentUsername = localStorage.getItem('username');
-
 export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }) => {
@@ -15,6 +12,9 @@ export const login = createAsyncThunk(
     return response.data;
   },
 );
+
+const isAuth = localStorage.getItem('token') !== null;
+const currentUsername = localStorage.getItem('username');
 
 const initialState = {
   auth: isAuth && currentUsername !== null,
