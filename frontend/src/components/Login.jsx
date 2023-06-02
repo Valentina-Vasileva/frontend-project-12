@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import {
   Col, Row, Card, Image, Form, Button, Toast, ToastContainer, Container,
 } from 'react-bootstrap';
@@ -6,27 +6,22 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import routes from '../routes.js';
-import AuthContext from '../context/AuthContext.js';
-
-const getTypeOfErrorMessage = (message) => {
-  switch (message) {
-    case 'Request failed with status code 401':
-      return 'unauthorized';
-    case 'Network Error':
-      return 'network';
-    default:
-      return 'default';
-  }
-};
+import { login } from '../slices/authSlice.js';
+import getErrorType from '../getErrorType.js';
 
 const Login = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
-  const [loginError, setLoginError] = useState();
+  const auth = useSelector((selector) => selector.authReducer.auth);
+
+  if (auth) {
+    navigate(routes.frontend.main());
+  }
+
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const loginError = useSelector((selector) => selector.authReducer.authError);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required(t('login.inputs.nickname.errors.required')),
@@ -35,17 +30,7 @@ const Login = () => {
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-    axios.post(routes.backend.login(), { username, password })
-      .then((response) => {
-        login(response.data.token, username);
-        navigate(routes.frontend.main());
-      })
-      .catch((error) => {
-        setLoginError(error);
-        if (getTypeOfErrorMessage(error.message) === 'network') {
-          toast.error(t('login.errors.network'));
-        }
-      });
+    dispatch(login({ username, password }));
   };
 
   const initialValues = {
@@ -94,12 +79,12 @@ const Login = () => {
                               {errors.password}
                             </Form.Control.Feedback>
                           ) : null}
-                          { loginError && getTypeOfErrorMessage(loginError.message) === 'unauthorized'
+                          { loginError && getErrorType(loginError.message) === 'unauthorized'
                         && (
                         <ToastContainer>
                           <Toast className="text-white" bg="danger">
                             <Toast.Body className="p-0">
-                              { t(`login.errors.${getTypeOfErrorMessage(loginError.message)}`) }
+                              { t(`login.errors.${getErrorType(loginError.message)}`) }
                             </Toast.Body>
                           </Toast>
                         </ToastContainer>

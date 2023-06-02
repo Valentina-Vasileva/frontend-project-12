@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext.js';
+import { useSelector } from 'react-redux';
 import Chat from './Chat/Chat.jsx';
+import routes from '../routes.js';
 
 const Main = () => {
   const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
+  const auth = useSelector((selector) => selector.authReducer.auth);
 
   useEffect(() => {
     if (!auth) {
-      navigate('/login');
+      navigate(routes.frontend.login());
     }
-  });
+  }, [auth]);
 
   return (
     <Chat />

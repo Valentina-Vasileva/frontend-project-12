@@ -1,20 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Button,
   Container, Navbar,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import AuthContext from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../slices/authSlice.js';
 
 const Header = () => {
-  const { auth, logout } = useContext(AuthContext);
+  const auth = useSelector((selector) => selector.authReducer.auth);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const onClickLogoutHandle = () => {
+    dispatch(dispatch(actions.logout()));
+  };
 
   return (
     <Navbar expand="lg" variant="light" bg="white" className="shadow-sm">
       <Container>
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-        { auth && <Button variant="primary" onClick={() => logout()}>{t('login.buttons.logout')}</Button> }
+        { auth && <Button variant="primary" onClick={onClickLogoutHandle}>{t('login.buttons.logout')}</Button> }
       </Container>
     </Navbar>
   );

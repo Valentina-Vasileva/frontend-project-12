@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import App from './components/App.jsx';
 import resources from './locales/index.js';
 import store from './slices/index.js';
-import AuthProvider from './context/AuthProvider';
 
 const init = async () => {
   await i18n
@@ -18,9 +17,7 @@ const init = async () => {
   return (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </Provider>
     </I18nextProvider>
   );
