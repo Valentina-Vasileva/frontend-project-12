@@ -46,5 +46,17 @@ export default {
         placeholder: 'Введите сообщение...',
       },
     },
+    modals: {
+      create_channel: {
+        title: 'Добавить канал',
+        cancel: 'Отменить',
+        submit: 'Отправить',
+        input: {
+          errors: {
+            required: 'Обязательное поле',
+          },
+        },
+      },
+    },
   },
 };
