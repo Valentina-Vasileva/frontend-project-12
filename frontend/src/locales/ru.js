@@ -32,6 +32,9 @@ export default {
     },
     channels: {
       title: 'Каналы',
+      create: {
+        success: 'Канал создан',
+      },
     },
     messages: {
       list: {
@@ -54,6 +57,7 @@ export default {
         input: {
           errors: {
             required: 'Обязательное поле',
+            one_of: 'Должно быть уникальным',
           },
         },
       },
