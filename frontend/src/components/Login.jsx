@@ -63,19 +63,35 @@ const Login = () => {
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 text-body form-floating">
-                          <Form.Control required type="text" placeholder={t('login.inputs.nickname.placeholder')} name="username" value={values.username} onChange={handleChange} />
+                          <Form.Control
+                            required
+                            type="text"
+                            placeholder={t('login.inputs.nickname.placeholder')}
+                            name="username"
+                            value={values.username}
+                            onChange={handleChange}
+                            isInvalid={!!loginError}
+                          />
                           <Form.Label>{t('login.inputs.nickname.label')}</Form.Label>
                           {errors.username && touched.username ? (
-                            <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type="invalid" tooltip hidden>
                               {errors.username}
                             </Form.Control.Feedback>
                           ) : null}
                         </Form.Group>
                         <Form.Group className="mb-4 text-body form-floating">
-                          <Form.Control required type="password" placeholder={t('login.inputs.password.placeholder')} name="password" value={values.password} onChange={handleChange} />
+                          <Form.Control
+                            required
+                            type="password"
+                            placeholder={t('login.inputs.password.placeholder')}
+                            name="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            isInvalid={!!loginError}
+                          />
                           <Form.Label>{t('login.inputs.password.label')}</Form.Label>
                           {errors.password && touched.password ? (
-                            <Form.Control.Feedback type="invalid" tooltip>
+                            <Form.Control.Feedback type="invalid" tooltip hidden>
                               {errors.password}
                             </Form.Control.Feedback>
                           ) : null}

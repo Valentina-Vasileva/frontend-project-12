@@ -40,7 +40,7 @@ const CreateChannelModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.create_channel.title')}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="px-3 pb-1">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -61,7 +61,7 @@ const CreateChannelModal = () => {
                   isInvalid={!!errors.name}
                 />
                 <ErrorMessage name="name">
-                  {(msg) => <div className="text-danger small">{msg}</div>}
+                  {(msg) => <div className="text-danger small mt-2">{msg}</div>}
                 </ErrorMessage>
                 <Modal.Footer className="py-1 px-0 border-0 m-0">
                   <Button variant="secondary" onClick={handleClose}>{t('modals.create_channel.cancel')}</Button>
