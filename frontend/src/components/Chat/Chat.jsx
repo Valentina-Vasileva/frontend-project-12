@@ -22,8 +22,8 @@ const Chat = () => {
       dispatch(channelsActions.addChannel(payload));
     }
 
-    function removeChannel(payload) {
-      dispatch(channelsActions.removeChannel(payload));
+    function removeChannel({ id }) {
+      dispatch(channelsActions.removeChannel(id));
     }
 
     function renameChannel(payload) {

@@ -14,7 +14,7 @@ const ChannelsList = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(modalActions.openModal('create_channel'));
+    dispatch(modalActions.openModal({ type: 'create_channel', id: null }));
   };
 
   return (

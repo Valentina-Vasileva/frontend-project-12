@@ -1,6 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import socket from '../socket.js';
 import fetchChatData from './chatSlice.js';
+import { actions as channelsActions } from './channelsSlice.js';
 
 export const messagesAdapter = createEntityAdapter();
 const initialState = messagesAdapter.getInitialState();
@@ -39,6 +40,12 @@ const messagesSlice = createSlice({
       })
       .addCase(sendMessage.fulfilled, (state) => {
         state.messageFormStatus = 'inactivity';
+      })
+      .addCase(channelsActions.removeChannel, (state, { payload }) => {
+        const channelId = payload;
+        const allMessages = Object.values(state.entities);
+        const restMessages = allMessages.filter((message) => message.channelId !== channelId);
+        messagesAdapter.setAll(state, restMessages);
       });
   },
 });

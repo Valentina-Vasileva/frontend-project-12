@@ -22,9 +22,30 @@ export const createChannel = createAsyncThunk(
   },
 );
 
+export const removeChannel = createAsyncThunk(
+  'channels/removeChannel',
+  async (id) => {
+    await new Promise((resolve, reject) => {
+      socket.emit('removeChannel', { id }, (response) => {
+        if (response.error) {
+          reject();
+        }
+        resolve(response);
+      });
+    });
+  },
+);
+
+const defaultCurrentChannelId = 1;
+
 const channelsSlice = createSlice({
   name: 'channels',
-  initialState: { ...initialState, currentChannelId: null, createChannelFormStatus: 'inactivity' },
+  initialState: {
+    ...initialState,
+    currentChannelId: defaultCurrentChannelId,
+    createChannelFormStatus: 'inactivity',
+    removeChannelStatus: 'inactivity',
+  },
   reducers: {
     setCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
@@ -50,6 +71,17 @@ const channelsSlice = createSlice({
         state.createChannelFormStatus = 'inactivity';
         state.currentChannelId = id;
         toast.success(i18n.t('channels.create.success'));
+      })
+      .addCase(removeChannel.pending, (state) => {
+        state.removeChannelStatus = 'pending';
+      })
+      .addCase(removeChannel.rejected, (state) => {
+        state.removeChannelStatus = 'inactivity';
+      })
+      .addCase(removeChannel.fulfilled, (state) => {
+        state.removeChannelStatus = 'inactivity';
+        toast.success(i18n.t('channels.remove.success'));
+        state.currentChannelId = defaultCurrentChannelId;
       });
   },
 });

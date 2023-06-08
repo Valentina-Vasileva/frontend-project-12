@@ -35,6 +35,13 @@ export default {
       create: {
         success: 'Канал создан',
       },
+      remove: {
+        title: 'Удалить',
+        success: 'Канал удален',
+      },
+      rename: {
+        title: 'Переименовать',
+      },
     },
     messages: {
       list: {
@@ -60,6 +67,11 @@ export default {
             one_of: 'Должно быть уникальным',
           },
         },
+      },
+      remove_channel: {
+        title: 'Удалить канал',
+        cancel: 'Отменить',
+        remove: 'Удалить',
       },
     },
   },
