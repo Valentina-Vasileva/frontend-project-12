@@ -26,8 +26,8 @@ const Chat = () => {
       dispatch(channelsActions.removeChannel(id));
     }
 
-    function renameChannel(payload) {
-      console.log(payload);
+    function renameChannel({ id, name }) {
+      dispatch(channelsActions.updateChannel({ id, changes: { name } }));
     }
 
     socket.on('newMessage', newMessage);

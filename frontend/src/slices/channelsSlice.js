@@ -36,6 +36,20 @@ export const removeChannel = createAsyncThunk(
   },
 );
 
+export const renameChannel = createAsyncThunk(
+  'channels/renameChannel',
+  async ({ id, name }) => {
+    await new Promise((resolve, reject) => {
+      socket.emit('renameChannel', { id, name }, (response) => {
+        if (response.error) {
+          reject();
+        }
+        resolve(response);
+      });
+    });
+  },
+);
+
 const defaultCurrentChannelId = 1;
 
 const channelsSlice = createSlice({
@@ -44,7 +58,8 @@ const channelsSlice = createSlice({
     ...initialState,
     currentChannelId: defaultCurrentChannelId,
     createChannelFormStatus: 'inactivity',
-    removeChannelStatus: 'inactivity',
+    removeChannelFormStatus: 'inactivity',
+    renameChannelFormStatus: 'inactivity',
   },
   reducers: {
     setCurrentChannelId: (state, { payload }) => {
@@ -52,6 +67,7 @@ const channelsSlice = createSlice({
     },
     addChannel: channelsAdapter.addOne,
     removeChannel: channelsAdapter.removeOne,
+    updateChannel: channelsAdapter.updateOne,
   },
   extraReducers: (builder) => {
     builder
@@ -73,15 +89,25 @@ const channelsSlice = createSlice({
         toast.success(i18n.t('channels.create.success'));
       })
       .addCase(removeChannel.pending, (state) => {
-        state.removeChannelStatus = 'pending';
+        state.removeChannelFormStatus = 'pending';
       })
       .addCase(removeChannel.rejected, (state) => {
-        state.removeChannelStatus = 'inactivity';
+        state.removeChannelFormStatus = 'inactivity';
       })
       .addCase(removeChannel.fulfilled, (state) => {
-        state.removeChannelStatus = 'inactivity';
+        state.removeChannelFormStatus = 'inactivity';
         toast.success(i18n.t('channels.remove.success'));
         state.currentChannelId = defaultCurrentChannelId;
+      })
+      .addCase(renameChannel.pending, (state) => {
+        state.renameChannelFormStatus = 'pending';
+      })
+      .addCase(renameChannel.rejected, (state) => {
+        state.renameChannelFormStatus = 'inactivity';
+      })
+      .addCase(renameChannel.fulfilled, (state) => {
+        state.renameChannelFormStatus = 'inactivity';
+        toast.success(i18n.t('channels.rename.success'));
       });
   },
 });

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createChannel, removeChannel } from './channelsSlice.js';
+import { createChannel, removeChannel, renameChannel } from './channelsSlice.js';
 
 const initialState = {
   type: null,
@@ -27,6 +27,12 @@ const modalSlice = createSlice({
       })
       .addCase(removeChannel.fulfilled, (state) => {
         if (state.type === 'remove_channel') {
+          state.type = null;
+          state.id = null;
+        }
+      })
+      .addCase(renameChannel.fulfilled, (state) => {
+        if (state.type === 'rename_channel') {
           state.type = null;
           state.id = null;
         }

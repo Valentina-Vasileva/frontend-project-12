@@ -41,6 +41,7 @@ export default {
       },
       rename: {
         title: 'Переименовать',
+        success: 'Канал переименован',
       },
     },
     messages: {
@@ -73,6 +74,17 @@ export default {
         cancel: 'Отменить',
         remove: 'Удалить',
         sure: 'Уверены?',
+      },
+      rename_channel: {
+        title: 'Переименовать канал',
+        cancel: 'Отменить',
+        submit: 'Отправить',
+        input: {
+          errors: {
+            required: 'Обязательное поле',
+            one_of: 'Должно быть уникальным',
+          },
+        },
       },
     },
   },

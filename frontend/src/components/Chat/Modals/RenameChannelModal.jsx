@@ -7,19 +7,20 @@ import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import React from 'react';
 import { actions as modalActions } from '../../../slices/modalSlice.js';
-import { createChannel, selectors } from '../../../slices/channelsSlice.js';
+import { renameChannel, selectors } from '../../../slices/channelsSlice.js';
 
 const RenameChannelModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const formStatus = useSelector((selector) => selector.channelsReducer.createChannelFormStatus);
+  const formStatus = useSelector((selector) => selector.channelsReducer.renameChannelFormStatus);
   const channels = useSelector(selectors.selectAll);
+  const channelId = useSelector((selector) => selector.modalReducer.id);
 
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
-      .required(t('modals.create_channel.input.errors.required'))
-      .notOneOf(channels.map((channel) => channel.name), t('modals.create_channel.input.errors.one_of')),
+      .required(t('modals.rename_channel.input.errors.required'))
+      .notOneOf(channels.map((channel) => channel.name), t('modals.rename_channel.input.errors.one_of')),
   });
 
   const initialValues = {
@@ -32,13 +33,13 @@ const RenameChannelModal = () => {
 
   const onSubmit = (values) => {
     const { name } = values;
-    dispatch(createChannel(name));
+    dispatch(renameChannel({ id: channelId, name }));
   };
 
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.create_channel.title')}</Modal.Title>
+        <Modal.Title>{t('modals.rename_channel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="px-3 pb-1">
         <Formik
@@ -64,8 +65,8 @@ const RenameChannelModal = () => {
                   {(msg) => <div className="text-danger small mt-2">{msg}</div>}
                 </ErrorMessage>
                 <Modal.Footer className="py-1 px-0 border-0 m-0">
-                  <Button variant="secondary" onClick={handleClose}>{t('modals.create_channel.cancel')}</Button>
-                  <Button variant="primary" className="m-0" type="submit">{t('modals.create_channel.submit')}</Button>
+                  <Button variant="secondary" onClick={handleClose}>{t('modals.rename_channel.cancel')}</Button>
+                  <Button variant="primary" className="m-0" type="submit">{t('modals.rename_channel.submit')}</Button>
                 </Modal.Footer>
               </Form.Group>
             </Form>
