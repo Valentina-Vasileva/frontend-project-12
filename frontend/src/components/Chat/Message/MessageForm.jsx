@@ -2,7 +2,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Formik } from 'formik';
 import { MESSAGE_FORM_STATUS_INACTIVITY, sendMessage } from '../../../slices/messagesSlice.js';
 
@@ -14,6 +14,12 @@ const MessageForm = () => {
   const username = useSelector((selector) => selector.authReducer.username);
 
   const dispatch = useDispatch();
+
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    inputEl.current.focus();
+  });
 
   const validationSchema = Yup.object().shape({
     body: Yup.string().required(t('messages.input.errors.required')),
@@ -49,6 +55,7 @@ const MessageForm = () => {
               value={values.body}
               onChange={handleChange}
               disabled={messageFormStatus !== MESSAGE_FORM_STATUS_INACTIVITY}
+              ref={inputEl}
             />
             <Button className="border-0" variant="group-vertical" type="submit" disabled={values.body.length === 0 || messageFormStatus !== 'inactivity'}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">

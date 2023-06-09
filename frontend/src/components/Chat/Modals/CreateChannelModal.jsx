@@ -5,7 +5,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { actions as modalActions } from '../../../slices/modalSlice.js';
 import { CHANNEL_FORM_STATUS_INACTIVITY, createChannel, selectors } from '../../../slices/channelsSlice.js';
 
@@ -14,6 +14,12 @@ const CreateChannelModal = () => {
   const { t } = useTranslation();
   const formStatus = useSelector((selector) => selector.channelsReducer.createChannelFormStatus);
   const channels = useSelector(selectors.selectAll);
+
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
 
   const validationSchema = Yup.object().shape({
     name: Yup
@@ -59,6 +65,7 @@ const CreateChannelModal = () => {
                   onChange={handleChange}
                   disabled={formStatus !== CHANNEL_FORM_STATUS_INACTIVITY}
                   isInvalid={!!errors.name}
+                  ref={inputEl}
                 />
                 <ErrorMessage name="name">
                   {(msg) => <div className="text-danger small mt-2">{msg}</div>}
