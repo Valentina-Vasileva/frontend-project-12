@@ -15,6 +15,7 @@ const RenameChannelModal = () => {
   const formStatus = useSelector((selector) => selector.channelsReducer.renameChannelFormStatus);
   const channels = useSelector(selectors.selectAll);
   const channelId = useSelector((selector) => selector.modalReducer.id);
+  const currentChannel = useSelector((state) => selectors.selectById(state, channelId));
 
   const validationSchema = Yup.object().shape({
     name: Yup
@@ -24,7 +25,7 @@ const RenameChannelModal = () => {
   });
 
   const initialValues = {
-    name: '',
+    name: currentChannel.name,
   };
 
   const handleClose = () => {
