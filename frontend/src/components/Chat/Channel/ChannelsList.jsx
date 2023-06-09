@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Col, Nav,
 } from 'react-bootstrap';
-import { selectors } from '../../slices/channelsSlice.js';
+import { selectors } from '../../../slices/channelsSlice.js';
 import Channel from './Channel.jsx';
-import { actions as modalActions, CREATE_CHANNEL_MODAL_TYPE } from '../../slices/modalSlice.js';
-import ChatModal from './ChatModal.jsx';
+import { actions as modalActions, CREATE_CHANNEL_MODAL_TYPE } from '../../../slices/modalSlice.js';
+import ChatModal from '../ChatModal.jsx';
 
 const ChannelsList = () => {
   const channels = useSelector(selectors.selectAll);

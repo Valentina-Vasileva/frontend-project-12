@@ -3,8 +3,8 @@ import {
   Button, ButtonGroup, DropdownButton, NavItem, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { actions as channelsActions } from '../../slices/channelsSlice.js';
-import { actions as modalActions, REMOVE_CHANNEL_MODAL_TYPE, RENAME_CHANNEL_MODAL_TYPE } from '../../slices/modalSlice';
+import { actions as channelsActions } from '../../../slices/channelsSlice.js';
+import { actions as modalActions, REMOVE_CHANNEL_MODAL_TYPE, RENAME_CHANNEL_MODAL_TYPE } from '../../../slices/modalSlice';
 
 const ChannelsList = ({ channel }) => {
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const ChannelsList = ({ channel }) => {
   const handleRemove = () => {
     dispatch(modalActions.openModal({ type: REMOVE_CHANNEL_MODAL_TYPE, id }));
   };
+
   const handleRename = () => {
     dispatch(modalActions.openModal({ type: RENAME_CHANNEL_MODAL_TYPE, id }));
   };

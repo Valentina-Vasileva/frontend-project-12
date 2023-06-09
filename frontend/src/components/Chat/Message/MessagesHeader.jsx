@@ -1,8 +1,8 @@
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectors } from '../../slices/messagesSlice.js';
-import { selectors as channelSelectors } from '../../slices/channelsSlice.js';
+import { selectors } from '../../../slices/messagesSlice.js';
+import { selectors as channelSelectors } from '../../../slices/channelsSlice.js';
 
 const MessagesHeader = () => {
   const { t } = useTranslation();

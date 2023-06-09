@@ -1,6 +1,6 @@
 import { Col, ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { selectors } from '../../slices/messagesSlice.js';
+import { selectors } from '../../../slices/messagesSlice.js';
 import MessagesHeader from './MessagesHeader.jsx';
 import Message from './Message';
 import MessageForm from './MessageForm.jsx';

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import React from 'react';
 import { Formik } from 'formik';
-import { MESSAGE_FORM_STATUS_INACTIVITY, sendMessage } from '../../slices/messagesSlice.js';
+import { MESSAGE_FORM_STATUS_INACTIVITY, sendMessage } from '../../../slices/messagesSlice.js';
 
 const MessageForm = () => {
   const { t } = useTranslation();
