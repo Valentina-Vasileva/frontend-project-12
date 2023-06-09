@@ -4,8 +4,12 @@ import i18n from 'i18next';
 import fetchChatData from './chatSlice.js';
 import socket from '../socket';
 
+export const CHANNEL_FORM_STATUS_INACTIVITY = 'inactivity';
+export const CHANNEL_FORM_STATUS_PENDING = 'pending';
+
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
+const defaultCurrentChannelId = 1;
 
 export const createChannel = createAsyncThunk(
   'channels/createChannel',
@@ -50,16 +54,14 @@ export const renameChannel = createAsyncThunk(
   },
 );
 
-const defaultCurrentChannelId = 1;
-
 const channelsSlice = createSlice({
   name: 'channels',
   initialState: {
     ...initialState,
     currentChannelId: defaultCurrentChannelId,
-    createChannelFormStatus: 'inactivity',
-    removeChannelFormStatus: 'inactivity',
-    renameChannelFormStatus: 'inactivity',
+    createChannelFormStatus: CHANNEL_FORM_STATUS_INACTIVITY,
+    removeChannelFormStatus: CHANNEL_FORM_STATUS_INACTIVITY,
+    renameChannelFormStatus: CHANNEL_FORM_STATUS_INACTIVITY,
   },
   reducers: {
     setCurrentChannelId: (state, { payload }) => {
@@ -77,36 +79,36 @@ const channelsSlice = createSlice({
         state.currentChannelId = currentChannelId;
       })
       .addCase(createChannel.pending, (state) => {
-        state.createChannelFormStatus = 'pending';
+        state.createChannelFormStatus = CHANNEL_FORM_STATUS_PENDING;
       })
       .addCase(createChannel.rejected, (state) => {
-        state.createChannelFormStatus = 'inactivity';
+        state.createChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
       })
       .addCase(createChannel.fulfilled, (state, { payload }) => {
         const { id } = payload;
-        state.createChannelFormStatus = 'inactivity';
+        state.createChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
         state.currentChannelId = id;
         toast.success(i18n.t('channels.create.success'));
       })
       .addCase(removeChannel.pending, (state) => {
-        state.removeChannelFormStatus = 'pending';
+        state.removeChannelFormStatus = CHANNEL_FORM_STATUS_PENDING;
       })
       .addCase(removeChannel.rejected, (state) => {
-        state.removeChannelFormStatus = 'inactivity';
+        state.removeChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
       })
       .addCase(removeChannel.fulfilled, (state) => {
-        state.removeChannelFormStatus = 'inactivity';
+        state.removeChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
         toast.success(i18n.t('channels.remove.success'));
         state.currentChannelId = defaultCurrentChannelId;
       })
       .addCase(renameChannel.pending, (state) => {
-        state.renameChannelFormStatus = 'pending';
+        state.renameChannelFormStatus = CHANNEL_FORM_STATUS_PENDING;
       })
       .addCase(renameChannel.rejected, (state) => {
-        state.renameChannelFormStatus = 'inactivity';
+        state.renameChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
       })
       .addCase(renameChannel.fulfilled, (state) => {
-        state.renameChannelFormStatus = 'inactivity';
+        state.renameChannelFormStatus = CHANNEL_FORM_STATUS_INACTIVITY;
         toast.success(i18n.t('channels.rename.success'));
       });
   },

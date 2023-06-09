@@ -3,6 +3,8 @@ import socket from '../socket.js';
 import fetchChatData from './chatSlice.js';
 import { actions as channelsActions } from './channelsSlice.js';
 
+export const MESSAGE_FORM_STATUS_INACTIVITY = 'inactivity';
+export const MESSAGE_FORM_STATUS_PENDING = 'pending';
 export const messagesAdapter = createEntityAdapter();
 const initialState = messagesAdapter.getInitialState();
 
@@ -22,7 +24,7 @@ export const sendMessage = createAsyncThunk(
 
 const messagesSlice = createSlice({
   name: 'messages',
-  initialState: { ...initialState, messageFormStatus: 'inactivity' },
+  initialState: { ...initialState, messageFormStatus: MESSAGE_FORM_STATUS_INACTIVITY },
   reducers: {
     addMessage: messagesAdapter.addOne,
   },
@@ -33,13 +35,13 @@ const messagesSlice = createSlice({
         messagesAdapter.addMany(state, messages);
       })
       .addCase(sendMessage.pending, (state) => {
-        state.messageFormStatus = 'pending';
+        state.messageFormStatus = MESSAGE_FORM_STATUS_PENDING;
       })
       .addCase(sendMessage.rejected, (state) => {
-        state.messageFormStatus = 'inactivity';
+        state.messageFormStatus = MESSAGE_FORM_STATUS_INACTIVITY;
       })
       .addCase(sendMessage.fulfilled, (state) => {
-        state.messageFormStatus = 'inactivity';
+        state.messageFormStatus = MESSAGE_FORM_STATUS_INACTIVITY;
       })
       .addCase(channelsActions.removeChannel, (state, { payload }) => {
         const channelId = payload;

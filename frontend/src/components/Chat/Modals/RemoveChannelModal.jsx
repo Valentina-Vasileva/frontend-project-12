@@ -5,7 +5,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { actions as modalActions } from '../../../slices/modalSlice.js';
-import { removeChannel } from '../../../slices/channelsSlice.js';
+import { CHANNEL_FORM_STATUS_INACTIVITY, removeChannel } from '../../../slices/channelsSlice.js';
 
 const RemoveChannelModal = () => {
   const dispatch = useDispatch();
@@ -30,8 +30,8 @@ const RemoveChannelModal = () => {
         <p className="lead">{t('modals.remove_channel.sure')}</p>
       </Modal.Body>
       <Modal.Footer className="py-1 border-0 m-0">
-        <Button variant="secondary" onClick={handleClose} disabled={formStatus !== 'inactivity'}>{t('modals.remove_channel.cancel')}</Button>
-        <Button variant="danger" className="m-0" onClick={onClick} disabled={formStatus !== 'inactivity'}>{t('modals.remove_channel.remove')}</Button>
+        <Button variant="secondary" onClick={handleClose} disabled={formStatus !== CHANNEL_FORM_STATUS_INACTIVITY}>{t('modals.remove_channel.cancel')}</Button>
+        <Button variant="danger" className="m-0" onClick={onClick} disabled={formStatus !== CHANNEL_FORM_STATUS_INACTIVITY}>{t('modals.remove_channel.remove')}</Button>
       </Modal.Footer>
     </>
   );

@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { selectors } from '../../slices/channelsSlice.js';
 import Channel from './Channel.jsx';
-import { actions as modalActions } from '../../slices/modalSlice.js';
+import { actions as modalActions, CREATE_CHANNEL_MODAL_TYPE } from '../../slices/modalSlice.js';
 import ChatModal from './ChatModal.jsx';
 
 const ChannelsList = () => {
@@ -14,7 +14,7 @@ const ChannelsList = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(modalActions.openModal({ type: 'create_channel', id: null }));
+    dispatch(modalActions.openModal({ type: CREATE_CHANNEL_MODAL_TYPE, id: null }));
   };
 
   return (

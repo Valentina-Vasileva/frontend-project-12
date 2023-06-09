@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { ErrorMessage, Formik } from 'formik';
 import React from 'react';
 import { actions as modalActions } from '../../../slices/modalSlice.js';
-import { renameChannel, selectors } from '../../../slices/channelsSlice.js';
+import { CHANNEL_FORM_STATUS_INACTIVITY, renameChannel, selectors } from '../../../slices/channelsSlice.js';
 
 const RenameChannelModal = () => {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const RenameChannelModal = () => {
                   name="name"
                   value={values.name}
                   onChange={handleChange}
-                  disabled={formStatus !== 'inactivity'}
+                  disabled={formStatus !== CHANNEL_FORM_STATUS_INACTIVITY}
                   isInvalid={!!errors.name}
                 />
                 <ErrorMessage name="name">
