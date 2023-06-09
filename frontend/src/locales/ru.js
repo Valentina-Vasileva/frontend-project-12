@@ -72,6 +72,7 @@ export default {
         title: 'Удалить канал',
         cancel: 'Отменить',
         remove: 'Удалить',
+        sure: 'Уверены?',
       },
     },
   },

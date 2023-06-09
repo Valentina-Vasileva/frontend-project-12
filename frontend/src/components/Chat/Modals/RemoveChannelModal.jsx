@@ -27,11 +27,12 @@ const RemoveChannelModal = () => {
         <Modal.Title>{t('modals.remove_channel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="px-3 pb-1">
-        <Modal.Footer className="py-1 px-0 border-0 m-0">
-          <Button variant="secondary" onClick={handleClose} disabled={removeStatus !== 'inactivity'}>{t('modals.remove_channel.cancel')}</Button>
-          <Button variant="primary" className="m-0" onClick={onClick} disabled={removeStatus !== 'inactivity'}>{t('modals.remove_channel.remove')}</Button>
-        </Modal.Footer>
+        <p className="lead">{t('modals.remove_channel.sure')}</p>
       </Modal.Body>
+      <Modal.Footer className="py-1 border-0 m-0">
+        <Button variant="secondary" onClick={handleClose} disabled={removeStatus !== 'inactivity'}>{t('modals.remove_channel.cancel')}</Button>
+        <Button variant="danger" className="m-0" onClick={onClick} disabled={removeStatus !== 'inactivity'}>{t('modals.remove_channel.remove')}</Button>
+      </Modal.Footer>
     </>
   );
 };
