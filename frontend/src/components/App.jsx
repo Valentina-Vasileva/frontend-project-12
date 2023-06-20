@@ -6,6 +6,7 @@ import Main from './Main.jsx';
 import NotFound from './NotFound.jsx';
 import Header from './Header.jsx';
 import routes from '../routes.js';
+import Registration from './Registration.jsx';
 
 const App = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const App = () => (
       <Header />
       <Routes>
         <Route path={routes.frontend.login()} element={<Login />} />
+        <Route path={routes.frontend.signup()} element={<Registration />} />
         <Route path={routes.frontend.main()} element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

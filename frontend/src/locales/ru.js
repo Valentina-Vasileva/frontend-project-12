@@ -3,7 +3,6 @@ export default {
     login: {
       title: 'Войти',
       has_no_account_question: 'Нет аккаунта?',
-      registration: 'Регистрация',
       inputs: {
         nickname: {
           label: 'Ваш ник',
@@ -23,6 +22,38 @@ export default {
       buttons: {
         enter: 'Войти',
         logout: 'Выйти',
+      },
+    },
+    registration: {
+      title: 'Регистрация',
+      inputs: {
+        nickname: {
+          label: 'Имя пользователя',
+          placeholder: 'Имя пользователя',
+          errors: {
+            required: 'Обязательное поле',
+            min: 'От 3 до 20 символов',
+            max: 'От 3 до 20 символов',
+          },
+        },
+        password: {
+          label: 'Пароль',
+          placeholder: 'Пароль',
+          errors: {
+            required: 'Обязательное поле',
+            min: 'Не менее 6 символов',
+          },
+        },
+        password_confirm: {
+          label: 'Подтвердите пароль',
+          placeholder: 'Подтвердите пароль',
+          errors: {
+            match: 'Пароли должны совпадать',
+          },
+        },
+      },
+      buttons: {
+        register: 'Зарегистрироваться',
       },
       errors: {
         unauthorized: 'Неверные имя пользователя или пароль',

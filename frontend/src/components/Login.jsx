@@ -120,7 +120,7 @@ const Login = () => {
                     {t('login.has_no_account_question')}
                     {' '}
                   </span>
-                  <Card.Link href={routes.frontend.signup()}>{t('login.registration')}</Card.Link>
+                  <Card.Link href={routes.frontend.signup()}>{t('registration.title')}</Card.Link>
                 </Card.Text>
               </Card.Footer>
             </Card.Body>
