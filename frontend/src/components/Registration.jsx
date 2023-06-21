@@ -5,8 +5,10 @@ import {
 import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { register, REGISTER_FORM_STATUS_INACTIVITY } from '../slices/registrationSlice.js';
+import getErrorType from '../getErrorType.js';
 import routes from '../routes.js';
 
 const Registration = () => {
@@ -16,6 +18,10 @@ const Registration = () => {
   if (auth) {
     navigate(routes.frontend.main());
   }
+
+  const dispatch = useDispatch();
+  const formStatus = useSelector((selector) => selector.registrationReducer.formStatus);
+  const registerError = useSelector((selector) => selector.registrationReducer.registerError);
 
   const { t } = useTranslation();
 
@@ -28,10 +34,16 @@ const Registration = () => {
       .required(t('registration.inputs.password.errors.required'))
       .min(6, t('registration.inputs.password.errors.min')),
     password_confirm: Yup.string()
-      .oneOf([Yup.ref('password'), null], t('registration.inputs.password_confirm.errors.match')),
+      .test(
+        'passwords-match',
+        t('registration.inputs.password_confirm.errors.match'),
+        (value, context) => context.parent.password === value,
+      ),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = (values) => {
+    const { username, password } = values;
+    dispatch(register({ username, password }));
   };
 
   const initialValues = {
@@ -61,7 +73,7 @@ const Registration = () => {
                     onSubmit={onSubmit}
                   >
                     {({
-                      handleSubmit, handleChange, values,
+                      handleSubmit, handleChange, values, errors, touched,
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 text-body form-floating">
@@ -72,6 +84,8 @@ const Registration = () => {
                             name="username"
                             value={values.username}
                             onChange={handleChange}
+                            isInvalid={(errors.username && touched.username) || registerError}
+                            disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                           />
                           <Form.Label>{t('registration.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">
@@ -94,6 +108,8 @@ const Registration = () => {
                             name="password"
                             value={values.password}
                             onChange={handleChange}
+                            isInvalid={(errors.password && touched.password) || registerError}
+                            disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                           />
                           <Form.Label>{t('registration.inputs.password.label')}</Form.Label>
                           <ErrorMessage name="password">
@@ -115,6 +131,10 @@ const Registration = () => {
                             name="password_confirm"
                             value={values.password_confirm}
                             onChange={handleChange}
+                            isInvalid={
+                              (errors.password_confirm && touched.password_confirm) || registerError
+                            }
+                            disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                           />
                           <Form.Label>{t('registration.inputs.password_confirm.label')}</Form.Label>
                           <ErrorMessage name="password_confirm">
@@ -128,8 +148,18 @@ const Registration = () => {
                               </ToastContainer>
                             )}
                           </ErrorMessage>
+                          { registerError && getErrorType(registerError.message) === 'conflict'
+                              && (
+                              <ToastContainer>
+                                <Toast className="text-white" bg="danger">
+                                  <Toast.Body className="p-0">
+                                    { t(`registration.errors.${getErrorType(registerError.message)}`) }
+                                  </Toast.Body>
+                                </Toast>
+                              </ToastContainer>
+                              )}
                         </Form.Group>
-                        <Button className="w-100 mb-3" variant="outline-primary" type="submit">
+                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}>
                           {t('registration.buttons.register')}
                         </Button>
                       </Form>

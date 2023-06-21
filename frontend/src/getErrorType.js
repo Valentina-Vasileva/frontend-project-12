@@ -4,6 +4,8 @@ const getErrorType = (message) => {
       return 'unauthorized';
     case 'Network Error':
       return 'network';
+    case 'Request failed with status code 409':
+      return 'conflict';
     default:
       return 'default';
   }

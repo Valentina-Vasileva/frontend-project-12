@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import i18n from 'i18next';
 import routes from '../routes';
 import getErrorType from '../getErrorType';
+import { register } from './registrationSlice.js';
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -52,6 +53,10 @@ const authSlice = createSlice({
         if (getErrorType(error.message) === 'network') {
           toast.error(i18n.t('login.errors.network'));
         }
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        const { payload: { username, token } } = action;
+        authSlice.caseReducers.login(state, { username, token });
       });
   },
 });

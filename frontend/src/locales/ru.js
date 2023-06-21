@@ -23,6 +23,11 @@ export default {
         enter: 'Войти',
         logout: 'Выйти',
       },
+      errors: {
+        unauthorized: 'Неверные имя пользователя или пароль',
+        network: 'Ошибка соединения',
+        default: 'Неизвестная ошибка',
+      },
     },
     registration: {
       title: 'Регистрация',
@@ -56,8 +61,8 @@ export default {
         register: 'Зарегистрироваться',
       },
       errors: {
-        unauthorized: 'Неверные имя пользователя или пароль',
         network: 'Ошибка соединения',
+        conflict: 'Такой пользователь уже существует',
         default: 'Неизвестная ошибка',
       },
     },
