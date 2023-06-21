@@ -6,6 +6,9 @@ import routes from '../routes';
 import getErrorType from '../getErrorType';
 import { register } from './registrationSlice.js';
 
+export const LOGIN_FORM_STATUS_INACTIVITY = 'inactivity';
+export const LOGIN_FORM_STATUS_PENDING = 'pending';
+
 export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }) => {
@@ -21,6 +24,7 @@ const initialState = {
   auth: isAuth && currentUsername !== null,
   username: currentUsername,
   authError: null,
+  formStatus: LOGIN_FORM_STATUS_INACTIVITY,
 };
 
 const authSlice = createSlice({
@@ -43,13 +47,18 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(login.pending, (state) => {
+        state.formStatus = LOGIN_FORM_STATUS_PENDING;
+      })
       .addCase(login.fulfilled, (state, action) => {
         const { payload: { username, token } } = action;
         authSlice.caseReducers.login(state, { username, token });
+        state.formStatus = LOGIN_FORM_STATUS_INACTIVITY;
       })
       .addCase(login.rejected, (state, action) => {
         const { error } = action;
         state.authError = error;
+        state.formStatus = LOGIN_FORM_STATUS_INACTIVITY;
         if (getErrorType(error.message) === 'network') {
           toast.error(i18n.t('login.errors.network'));
         }

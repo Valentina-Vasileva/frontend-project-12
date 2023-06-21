@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Col, Row, Card, Image, Form, Button, Toast, ToastContainer, Container,
 } from 'react-bootstrap';
-import { Formik } from 'formik';
+import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import routes from '../routes.js';
-import { login } from '../slices/authSlice.js';
+import { login, LOGIN_FORM_STATUS_INACTIVITY } from '../slices/authSlice.js';
 import getErrorType from '../getErrorType.js';
 
 const Login = () => {
@@ -22,6 +22,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const loginError = useSelector((selector) => selector.authReducer.authError);
+  const formStatus = useSelector((selector) => selector.authReducer.formStatus);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required(t('login.inputs.nickname.errors.required')),
@@ -59,7 +60,7 @@ const Login = () => {
                     onSubmit={onSubmit}
                   >
                     {({
-                      errors, touched, handleSubmit, handleChange, values,
+                      handleSubmit, handleChange, values,
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 text-body form-floating">
@@ -71,13 +72,20 @@ const Login = () => {
                             value={values.username}
                             onChange={handleChange}
                             isInvalid={!!loginError}
+                            disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
                           />
                           <Form.Label>{t('login.inputs.nickname.label')}</Form.Label>
-                          {errors.username && touched.username ? (
-                            <Form.Control.Feedback type="invalid" tooltip hidden>
-                              {errors.username}
-                            </Form.Control.Feedback>
-                          ) : null}
+                          <ErrorMessage name="username">
+                            {(msg) => (
+                              <ToastContainer>
+                                <Toast className="text-white" bg="danger">
+                                  <Toast.Body className="p-0">
+                                    { msg }
+                                  </Toast.Body>
+                                </Toast>
+                              </ToastContainer>
+                            )}
+                          </ErrorMessage>
                         </Form.Group>
                         <Form.Group className="mb-4 text-body form-floating">
                           <Form.Control
@@ -88,13 +96,20 @@ const Login = () => {
                             value={values.password}
                             onChange={handleChange}
                             isInvalid={!!loginError}
+                            disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
                           />
                           <Form.Label>{t('login.inputs.password.label')}</Form.Label>
-                          {errors.password && touched.password ? (
-                            <Form.Control.Feedback type="invalid" tooltip hidden>
-                              {errors.password}
-                            </Form.Control.Feedback>
-                          ) : null}
+                          <ErrorMessage name="password">
+                            {(msg) => (
+                              <ToastContainer>
+                                <Toast className="text-white" bg="danger">
+                                  <Toast.Body className="p-0">
+                                    { msg }
+                                  </Toast.Body>
+                                </Toast>
+                              </ToastContainer>
+                            )}
+                          </ErrorMessage>
                           { loginError && getErrorType(loginError.message) === 'unauthorized'
                         && (
                         <ToastContainer>
@@ -106,7 +121,7 @@ const Login = () => {
                         </ToastContainer>
                         )}
                         </Form.Group>
-                        <Button className="w-100 mb-3" variant="outline-primary" type="submit">
+                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}>
                           {t('login.buttons.enter')}
                         </Button>
                       </Form>
