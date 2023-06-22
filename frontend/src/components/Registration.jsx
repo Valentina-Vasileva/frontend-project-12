@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Col, Row, Card, Image, Form, Button, Container, ToastContainer, Toast,
 } from 'react-bootstrap';
@@ -18,6 +18,11 @@ const Registration = () => {
   if (auth) {
     navigate(routes.frontend.main());
   }
+
+  const inputEl = useRef();
+  useEffect(() => {
+    inputEl.current.focus();
+  });
 
   const dispatch = useDispatch();
   const formStatus = useSelector((selector) => selector.registrationReducer.formStatus);
@@ -86,6 +91,7 @@ const Registration = () => {
                             onChange={handleChange}
                             isInvalid={(errors.username && touched.username) || registerError}
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
+                            ref={inputEl}
                           />
                           <Form.Label>{t('registration.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">

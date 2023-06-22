@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Col, Row, Card, Image, Form, Button, Toast, ToastContainer, Container,
 } from 'react-bootstrap';
@@ -18,6 +18,11 @@ const Login = () => {
   if (auth) {
     navigate(routes.frontend.main());
   }
+
+  const inputEl = useRef();
+  useEffect(() => {
+    inputEl.current.focus();
+  });
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -73,6 +78,7 @@ const Login = () => {
                             onChange={handleChange}
                             isInvalid={!!loginError}
                             disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
+                            ref={inputEl}
                           />
                           <Form.Label>{t('login.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">
