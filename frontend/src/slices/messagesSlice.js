@@ -1,4 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import wordFilter from 'leo-profanity';
 import socket from '../socket.js';
 import fetchChatData from './chatSlice.js';
 import { actions as channelsActions } from './channelsSlice.js';
@@ -11,8 +12,10 @@ const initialState = messagesAdapter.getInitialState();
 export const sendMessage = createAsyncThunk(
   'messages/sendMessage',
   async ({ body, channelId, username }) => {
+    const cleanBody = wordFilter.clean(body);
+    console.log(cleanBody);
     await new Promise((resolve, reject) => {
-      socket.emit('newMessage', { body, channelId, username }, (response) => {
+      socket.emit('newMessage', { body: cleanBody, channelId, username }, (response) => {
         if (response.error) {
           reject();
         }
