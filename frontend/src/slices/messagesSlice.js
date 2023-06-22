@@ -13,7 +13,6 @@ export const sendMessage = createAsyncThunk(
   'messages/sendMessage',
   async ({ body, channelId, username }) => {
     const cleanBody = wordFilter.clean(body);
-    console.log(cleanBody);
     await new Promise((resolve, reject) => {
       socket.emit('newMessage', { body: cleanBody, channelId, username }, (response) => {
         if (response.error) {
