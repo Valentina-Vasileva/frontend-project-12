@@ -20,7 +20,7 @@ const ChannelsList = () => {
   return (
     <>
       <ChatModal />
-      <Col className="col-2 bg-light d-flex flex-column px-0 border-end">
+      <Col className="col-4 col-md-2 bg-light d-flex flex-column px-0 border-end">
         <div className="py-4 mt-1 mb-2 pe-2 ps-4 justify-content-between d-flex">
           <b>{t('channels.title')}</b>
           <Button className="p-0 btn-group-vertical bg-white border-0 text-primary" onClick={handleClick}>
