@@ -46,7 +46,7 @@ const ChannelsList = ({ channel }) => {
         >
           {`#\u00A0${name}`}
         </Button>
-        <DropdownButton as={ButtonGroup} variant={currentChannelId === id ? 'secondary' : ''} title="">
+        <DropdownButton as={ButtonGroup} variant={currentChannelId === id ? 'secondary' : ''} title="" aria-label={t('channels.manage')}>
           <Dropdown.Item onClick={handleRemove}>{t('channels.remove.title')}</Dropdown.Item>
           <Dropdown.Item onClick={handleRename}>{t('channels.rename.title')}</Dropdown.Item>
         </DropdownButton>

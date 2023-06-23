@@ -81,6 +81,7 @@ export default {
         success: 'Канал переименован',
       },
       name: 'Имя канала',
+      manage: 'Управление каналом',
     },
     messages: {
       list: {
