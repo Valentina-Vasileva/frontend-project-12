@@ -92,6 +92,7 @@ const Registration = () => {
                             isInvalid={(errors.username && touched.username) || registerError}
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                             ref={inputEl}
+                            aria-label={t('registration.inputs.nickname.label')}
                             required
                           />
                           <Form.Label htmlFor="username">{t('registration.inputs.nickname.label')}</Form.Label>
@@ -117,6 +118,7 @@ const Registration = () => {
                             onChange={handleChange}
                             isInvalid={(errors.password && touched.password) || registerError}
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
+                            aria-label={t('registration.inputs.password.label')}
                             required
                           />
                           <Form.Label htmlFor="password">{t('registration.inputs.password.label')}</Form.Label>
@@ -144,6 +146,7 @@ const Registration = () => {
                               (errors.password_confirm && touched.password_confirm) || registerError
                             }
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
+                            aria-label={t('registration.inputs.password_confirm.label')}
                           />
                           <Form.Label htmlFor="password_confirm">{t('registration.inputs.password_confirm.label')}</Form.Label>
                           <ErrorMessage name="password_confirm">
@@ -168,7 +171,7 @@ const Registration = () => {
                               </ToastContainer>
                               )}
                         </Form.Group>
-                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}>
+                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY} aria-label={t('registration.buttons.register')}>
                           {t('registration.buttons.register')}
                         </Button>
                       </Form>

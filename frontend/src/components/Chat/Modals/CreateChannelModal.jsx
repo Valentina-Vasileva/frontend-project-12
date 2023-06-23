@@ -66,13 +66,14 @@ const CreateChannelModal = () => {
                   disabled={formStatus !== CHANNEL_FORM_STATUS_INACTIVITY}
                   isInvalid={!!errors.name}
                   ref={inputEl}
+                  aria-label={t('channels.create.label')}
                 />
                 <ErrorMessage name="name">
                   {(msg) => <div className="text-danger small mt-2">{msg}</div>}
                 </ErrorMessage>
                 <Modal.Footer className="py-1 px-0 border-0 m-0">
-                  <Button variant="secondary" onClick={handleClose}>{t('modals.create_channel.cancel')}</Button>
-                  <Button variant="primary" className="m-0" type="submit">{t('modals.create_channel.submit')}</Button>
+                  <Button variant="secondary" onClick={handleClose} aria-label={t('modals.create_channel.cancel')}>{t('modals.create_channel.cancel')}</Button>
+                  <Button variant="primary" className="m-0" type="submit" aria-label={t('modals.create_channel.submit')}>{t('modals.create_channel.submit')}</Button>
                 </Modal.Footer>
               </Form.Group>
             </Form>

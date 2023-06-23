@@ -80,6 +80,7 @@ const Login = () => {
                             isInvalid={!!loginError}
                             disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
                             ref={inputEl}
+                            aria-label={t('login.inputs.nickname.label')}
                           />
                           <Form.Label htmlFor="username">{t('login.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">
@@ -105,6 +106,7 @@ const Login = () => {
                             onChange={handleChange}
                             isInvalid={!!loginError}
                             disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
+                            aria-label={t('login.inputs.password.label')}
                           />
                           <Form.Label htmlFor="password">{t('login.inputs.password.label')}</Form.Label>
                           <ErrorMessage name="password">
@@ -129,7 +131,7 @@ const Login = () => {
                         </ToastContainer>
                         )}
                         </Form.Group>
-                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}>
+                        <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY} aria-label={t('login.buttons.enter')}>
                           {t('login.buttons.enter')}
                         </Button>
                       </Form>

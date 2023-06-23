@@ -20,7 +20,7 @@ const Header = () => {
     <Navbar expand="lg" variant="light" bg="white" className="shadow-sm">
       <Container>
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-        { auth && <Button variant="primary" onClick={onClickLogoutHandle}>{t('login.buttons.logout')}</Button> }
+        { auth && <Button variant="primary" onClick={onClickLogoutHandle} aria-label={t('login.buttons.logout')}>{t('login.buttons.logout')}</Button> }
       </Container>
     </Navbar>
   );

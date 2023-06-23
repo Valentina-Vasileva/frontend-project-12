@@ -70,6 +70,7 @@ export default {
       title: 'Каналы',
       create: {
         success: 'Канал создан',
+        label: 'Создать канал',
       },
       remove: {
         title: 'Удалить',
@@ -91,6 +92,7 @@ export default {
           required: 'Необходимо ввести сообщение',
         },
         placeholder: 'Введите сообщение...',
+        label: 'Новое сообщение',
       },
     },
     modals: {
