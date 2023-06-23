@@ -74,7 +74,7 @@ export default {
       },
       remove: {
         title: 'Удалить',
-        success: 'Канал удален',
+        success: 'Канал удалён',
       },
       rename: {
         title: 'Переименовать',
