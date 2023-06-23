@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import wordFilter from 'leo-profanity';
 import socket from '../socket.js';
