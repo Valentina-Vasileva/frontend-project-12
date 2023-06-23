@@ -84,6 +84,7 @@ const Registration = () => {
                         <Form.Group className="mb-3 text-body form-floating">
                           <Form.Control
                             type="text"
+                            id="username"
                             placeholder={t('registration.inputs.nickname.placeholder')}
                             name="username"
                             value={values.username}
@@ -91,8 +92,9 @@ const Registration = () => {
                             isInvalid={(errors.username && touched.username) || registerError}
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                             ref={inputEl}
+                            required
                           />
-                          <Form.Label>{t('registration.inputs.nickname.label')}</Form.Label>
+                          <Form.Label htmlFor="username">{t('registration.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">
                             {(msg) => (
                               <ToastContainer>
@@ -108,14 +110,16 @@ const Registration = () => {
                         <Form.Group className="mb-3 text-body form-floating">
                           <Form.Control
                             type="password"
+                            id="password"
                             placeholder={t('registration.inputs.password.placeholder')}
                             name="password"
                             value={values.password}
                             onChange={handleChange}
                             isInvalid={(errors.password && touched.password) || registerError}
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
+                            required
                           />
-                          <Form.Label>{t('registration.inputs.password.label')}</Form.Label>
+                          <Form.Label htmlFor="password">{t('registration.inputs.password.label')}</Form.Label>
                           <ErrorMessage name="password">
                             {(msg) => (
                               <ToastContainer>
@@ -131,6 +135,7 @@ const Registration = () => {
                         <Form.Group className="mb-4 text-body form-floating">
                           <Form.Control
                             type="password"
+                            id="password_confirm"
                             placeholder={t('registration.inputs.password_confirm.placeholder')}
                             name="password_confirm"
                             value={values.password_confirm}
@@ -140,7 +145,7 @@ const Registration = () => {
                             }
                             disabled={formStatus !== REGISTER_FORM_STATUS_INACTIVITY}
                           />
-                          <Form.Label>{t('registration.inputs.password_confirm.label')}</Form.Label>
+                          <Form.Label htmlFor="password_confirm">{t('registration.inputs.password_confirm.label')}</Form.Label>
                           <ErrorMessage name="password_confirm">
                             {(msg) => (
                               <ToastContainer>

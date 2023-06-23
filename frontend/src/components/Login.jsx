@@ -72,6 +72,7 @@ const Login = () => {
                           <Form.Control
                             required
                             type="text"
+                            id="username"
                             placeholder={t('login.inputs.nickname.placeholder')}
                             name="username"
                             value={values.username}
@@ -80,7 +81,7 @@ const Login = () => {
                             disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
                             ref={inputEl}
                           />
-                          <Form.Label>{t('login.inputs.nickname.label')}</Form.Label>
+                          <Form.Label htmlFor="username">{t('login.inputs.nickname.label')}</Form.Label>
                           <ErrorMessage name="username">
                             {(msg) => (
                               <ToastContainer>
@@ -96,6 +97,7 @@ const Login = () => {
                         <Form.Group className="mb-4 text-body form-floating">
                           <Form.Control
                             required
+                            id="password"
                             type="password"
                             placeholder={t('login.inputs.password.placeholder')}
                             name="password"
@@ -104,7 +106,7 @@ const Login = () => {
                             isInvalid={!!loginError}
                             disabled={formStatus !== LOGIN_FORM_STATUS_INACTIVITY}
                           />
-                          <Form.Label>{t('login.inputs.password.label')}</Form.Label>
+                          <Form.Label htmlFor="password">{t('login.inputs.password.label')}</Form.Label>
                           <ErrorMessage name="password">
                             {(msg) => (
                               <ToastContainer>
