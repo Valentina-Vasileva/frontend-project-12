@@ -63,7 +63,7 @@ const RenameChannelModal = () => {
               <Form.Group>
                 <Form.Control
                   required
-                  type="text"
+                  type="textarea"
                   name="name"
                   value={values.name}
                   onChange={handleChange}
