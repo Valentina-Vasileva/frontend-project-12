@@ -80,6 +80,7 @@ export default {
         title: 'Переименовать',
         success: 'Канал переименован',
       },
+      name: 'Имя канала',
     },
     messages: {
       list: {

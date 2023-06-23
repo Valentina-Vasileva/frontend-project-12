@@ -72,6 +72,7 @@ const RenameChannelModal = () => {
                   ref={inputEl}
                   aria-label={t('modals.rename_channel.title')}
                 />
+                <Form.Label htmlFor="name" visuallyHidden>{t('channels.name')}</Form.Label>
                 <ErrorMessage name="name">
                   {(msg) => <div className="text-danger small mt-2">{msg}</div>}
                 </ErrorMessage>

@@ -60,6 +60,7 @@ const CreateChannelModal = () => {
                 <Form.Control
                   required
                   type="text"
+                  id="name"
                   name="name"
                   value={values.name}
                   onChange={handleChange}
@@ -68,6 +69,7 @@ const CreateChannelModal = () => {
                   ref={inputEl}
                   aria-label={t('channels.create.label')}
                 />
+                <Form.Label htmlFor="name" visuallyHidden>{t('channels.name')}</Form.Label>
                 <ErrorMessage name="name">
                   {(msg) => <div className="text-danger small mt-2">{msg}</div>}
                 </ErrorMessage>
