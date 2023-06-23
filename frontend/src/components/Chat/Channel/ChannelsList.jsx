@@ -23,7 +23,7 @@ const ChannelsList = () => {
       <Col className="col-4 col-md-2 bg-light d-flex flex-column px-0 border-end">
         <div className="py-4 mt-1 mb-2 pe-2 ps-4 justify-content-between d-flex">
           <b>{t('channels.title')}</b>
-          <Button className="p-0 btn-group-vertical bg-white border-0 text-primary" onClick={handleClick} aria-label="+">
+          <Button className="p-0 btn-group-vertical bg-white border-0 text-primary" onClick={handleClick} aria-label={t('channels.create.label')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -36,6 +36,7 @@ const ChannelsList = () => {
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
               />
             </svg>
+            <span className="visually-hidden">+</span>
           </Button>
         </div>
         {channels && (
