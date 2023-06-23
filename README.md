@@ -1,5 +1,6 @@
 ### Tests and linter status:
 [![Actions Status](https://github.com/Valentina-Vasileva/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Valentina-Vasileva/frontend-project-12/actions)
+[![Node.js CI](https://github.com/Valentina-Vasileva/frontend-project-12/workflows/nodejs/badge.svg)](https://github.com/Valentina-Vasileva/frontend-project-12/actions)
 
 CHAT
 ==============
