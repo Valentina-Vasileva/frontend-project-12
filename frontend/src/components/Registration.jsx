@@ -83,7 +83,6 @@ const Registration = () => {
                       <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 text-body form-floating">
                           <Form.Control
-                            required
                             type="text"
                             placeholder={t('registration.inputs.nickname.placeholder')}
                             name="username"
@@ -108,7 +107,6 @@ const Registration = () => {
                         </Form.Group>
                         <Form.Group className="mb-3 text-body form-floating">
                           <Form.Control
-                            required
                             type="password"
                             placeholder={t('registration.inputs.password.placeholder')}
                             name="password"
