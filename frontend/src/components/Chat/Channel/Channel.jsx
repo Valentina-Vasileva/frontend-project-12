@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Button, ButtonGroup, DropdownButton, NavItem, Dropdown,
+  Button, ButtonGroup, NavItem, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { actions as channelsActions } from '../../../slices/channelsSlice.js';
@@ -46,10 +46,15 @@ const ChannelsList = ({ channel }) => {
         >
           {`#\u00A0${name}`}
         </Button>
-        <DropdownButton as={ButtonGroup} variant={currentChannelId === id ? 'secondary' : ''} title="" aria-label={t('channels.manage')}>
-          <Dropdown.Item onClick={handleRemove}>{t('channels.remove.title')}</Dropdown.Item>
-          <Dropdown.Item onClick={handleRename}>{t('channels.rename.title')}</Dropdown.Item>
-        </DropdownButton>
+        <Dropdown as={ButtonGroup} variant={currentChannelId === id ? 'secondary' : ''} title="" aria-label={t('channels.manage')}>
+          <Dropdown.Toggle variant={id === currentChannelId ? 'secondary' : 'light'} className="flex-grow-0 dropdown-toggle-split">
+            <span className="visually-hidden">{t('channels.manage')}</span>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleRemove}>{t('channels.remove.title')}</Dropdown.Item>
+            <Dropdown.Item onClick={handleRename}>{t('channels.rename.title')}</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </ButtonGroup>
       )}
     </NavItem>
