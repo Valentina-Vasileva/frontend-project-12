@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: |
+          docker build -t vvasileva/frontend_project_lvl12 -f  ./Dockerfile ./
+      - name: Push the Docker image
+        run: |
+          docker push vvasileva/frontend_project_lvl12
+      - name: Pull the Docker image
+        run: |
+          docker pull vvasileva/frontend_project_lvl12
+      - name: Update stack
+        run: |
+          cp master.docker-compose.yml docker-compose.yml
+          docker stack deploy --prune -c ./docker-compose.yml frontend-project-lvl12
+          docker container prune -f
+          docker image prune -f
